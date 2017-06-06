@@ -1,0 +1,7 @@
+".\Object\main.obj",
+".\Object\hal_delay.obj",
+".\Object\hal_clk.obj",
+".\Object\hal_rtc.obj" 
+TO ".\Object\rtc" 
+PRINT(".\lst\rtc.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

@@ -1,0 +1,9 @@
+".\Object\main.obj",
+".\Object\hal_delay.obj",
+".\Object\hal_clk.obj",
+".\Object\hal_uart.obj",
+".\Object\hal_rtc.obj",
+".\Object\hal_wdog.obj" 
+TO ".\Object\watchdog" 
+PRINT(".\lst\watchdog.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

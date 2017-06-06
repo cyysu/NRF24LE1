@@ -1,0 +1,10 @@
+".\Object\main.obj",
+".\Object\hal_delay.obj",
+".\Object\hal_adc.obj",
+".\Object\hal_clk.obj",
+".\Object\hal_uart.obj" 
+TO ".\Object\adc_vdd_single_step" 
+PRINT(".\Lst\adc_vdd_single_step.m51") RAMSIZE(256) 
+DISABLEWARNING (15, 16) 
+CODE( 0X0000-0X3FFF )
+XDATA( 0X0000-0XFFFE )

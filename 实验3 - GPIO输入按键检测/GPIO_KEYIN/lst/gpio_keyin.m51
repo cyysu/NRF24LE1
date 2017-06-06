@@ -1,0 +1,164 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/04/2015  10:44:15  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE .\Object\main.obj, .\Object\hal_delay.obj TO .\Object\gpio_keyin PRINT (.\lst\gpio_keyin.m51) R
+>> AMSIZE (256) DISABLEWARNING (15, 16)
+
+
+MEMORY MODEL: LARGE
+
+
+INPUT MODULES INCLUDED:
+  .\Object\main.obj (MAIN)
+  .\Object\hal_delay.obj (HAL_DELAY)
+  C:\KEIL\C51\LIB\C51L.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Object\gpio_keyin (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     002DH     UNIT         ?PR?MAIN?MAIN
+            CODE    0030H     001AH     UNIT         ?PR?_DELAY_US?HAL_DELAY
+            CODE    004AH     0014H     UNIT         ?PR?_DELAY_MS?HAL_DELAY
+            CODE    005EH     000CH     UNIT         ?C_C51STARTUP
+            CODE    006AH     000BH     UNIT         ?PR?IO_INIT?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   .\Object\gpio_keyin (MAIN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN
+  +--> ?PR?IO_INIT?MAIN
+  +--> ?PR?_DELAY_MS?HAL_DELAY
+
+?PR?_DELAY_MS?HAL_DELAY
+  +--> ?PR?_DELAY_US?HAL_DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Object\gpio_keyin (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/04/2015  10:44:15  PAGE 2
+
+
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IEN0
+  D:00B8H         PUBLIC        IEN1
+  C:006AH         PUBLIC        IO_Init
+  C:0003H         PUBLIC        main
+  B:0080H.0       PUBLIC        P00
+  B:0080H.1       PUBLIC        P01
+  B:0090H.2       PUBLIC        P12
+  B:0090H.3       PUBLIC        P13
+  D:0088H         PUBLIC        TCON
+  D:0093H         PUBLIC        P0DIR
+  D:0094H         PUBLIC        P1DIR
+  D:0098H         PUBLIC        S0CON
+  D:00D8H         PUBLIC        ADCON
+  D:00C8H         PUBLIC        T2CON
+  D:00F8H         PUBLIC        FSR
+  D:00E8H         PUBLIC        RFCON
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          IO_INIT
+  C:006AH         LINE#         49
+  C:006AH         LINE#         50
+  C:006AH         LINE#         51
+  C:006DH         LINE#         52
+  C:0070H         LINE#         53
+  C:0072H         LINE#         54
+  C:0074H         LINE#         55
+  -------         ENDPROC       IO_INIT
+  -------         PROC          MAIN
+  C:0003H         LINE#         61
+  C:0003H         LINE#         62
+  C:0003H         LINE#         63
+  C:0006H         LINE#         65
+  C:0006H         LINE#         66
+  C:0006H         LINE#         67
+  C:0009H         LINE#         68
+  C:0009H         LINE#         69
+  C:0010H         LINE#         70
+  C:0013H         LINE#         71
+  C:0013H         LINE#         72
+  C:0015H         LINE#         73
+  C:0018H         LINE#         74
+  C:001AH         LINE#         75
+  C:001AH         LINE#         76
+  C:001AH         LINE#         78
+  C:001DH         LINE#         79
+  C:001DH         LINE#         80
+  C:0024H         LINE#         81
+  C:0027H         LINE#         82
+  C:0027H         LINE#         83
+  C:0029H         LINE#         84
+  C:002CH         LINE#         85
+  C:002EH         LINE#         86
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/04/2015  10:44:15  PAGE 3
+
+
+  C:002EH         LINE#         87
+  C:002EH         LINE#         88
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        HAL_DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:004AH         PUBLIC        _delay_ms
+  C:003BH         PUBLIC        _delay_us
+  -------         PROC          L?0011
+  -------         ENDPROC       L?0011
+  -------         PROC          _DELAY_US
+  D:0006H         SYMBOL        us
+  C:003BH         LINE#         37
+  C:003BH         LINE#         38
+  C:003BH         LINE#         40
+  C:003BH         LINE#         41
+  C:003CH         LINE#         42
+  C:003DH         LINE#         43
+  C:003EH         LINE#         44
+  C:003FH         LINE#         45
+  C:0040H         LINE#         46
+  C:0049H         LINE#         47
+  -------         ENDPROC       _DELAY_US
+  -------         PROC          _DELAY_MS
+  D:0004H         SYMBOL        ms
+  C:004AH         LINE#         49
+  C:004EH         LINE#         50
+  C:004EH         LINE#         52
+  C:004EH         LINE#         53
+  C:004EH         LINE#         54
+  C:0051H         LINE#         55
+  C:0051H         LINE#         56
+  C:0054H         LINE#         57
+  C:005DH         LINE#         58
+  -------         ENDPROC       _DELAY_MS
+  -------         ENDMOD        HAL_DELAY
+
+Program Size: data=9.0 xdata=0 code=117
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

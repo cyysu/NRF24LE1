@@ -1,0 +1,6 @@
+".\Object\main.obj",
+".\Object\hal_clk.obj",
+".\Object\hal_uart.obj" 
+TO ".\Object\uart_led" 
+PRINT(".\lst\uart_led.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

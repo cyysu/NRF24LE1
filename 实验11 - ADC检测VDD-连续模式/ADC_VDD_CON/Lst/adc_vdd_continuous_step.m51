@@ -1,0 +1,713 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        07/09/2014  14:38:55  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE .\Object\main.obj, .\Object\hal_adc.obj, .\Object\hal_uart.obj, .\Object\hal_clk.obj, .\Object\
+>> hal_delay.obj TO .\Object\adc_vdd_continuous_step PRINT (.\Lst\adc_vdd_continuous_step.m51) RAMSIZE (256) DISABLEWARN
+>> ING (15, 16) CODE (0X0000-0X3FFF) XDATA (0X0000-0XFFFE)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Object\main.obj (MAIN)
+  .\Object\hal_adc.obj (HAL_ADC)
+  .\Object\hal_uart.obj (HAL_UART)
+  .\Object\hal_clk.obj (HAL_CLK)
+  .\Object\hal_delay.obj (HAL_DELAY)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Object\adc_vdd_continuous_step (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0007H     UNIT         _DATA_GROUP_
+            DATA    000FH     0006H     UNIT         ?DT?HAL_UART
+            DATA    0015H     0003H     UNIT         ?DT?MAIN
+            IDATA   0018H     0010H     UNIT         ?ID?HAL_UART
+            IDATA   0028H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     001AH     UNIT         ?PR?_DELAY_US?HAL_DELAY
+            CODE    001DH     0006H     UNIT         ?PR?HAL_ADC_BUSY?HAL_ADC
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     0032H     UNIT         ?PR?_PUTHEXSTRING?MAIN
+            CODE    0058H     000AH     UNIT         ?C_INITSEG
+                    0062H     0001H                  *** GAP ***
+            CODE    0063H     0003H     ABSOLUTE     
+            CODE    0066H     008CH     UNIT         ?C_C51STARTUP
+            CODE    00F2H     0049H     UNIT         ?PR?MAIN?MAIN
+            CODE    013BH     0049H     UNIT         ?PR?UART0_ISR?HAL_UART
+            CODE    0184H     0046H     UNIT         ?PR?_HAL_UART_INIT?HAL_UART
+            CODE    01CAH     0045H     UNIT         ?PR?ADC_IRQ?MAIN
+            CODE    020FH     002AH     UNIT         ?PR?ADCINIT?MAIN
+            CODE    0239H     0025H     UNIT         ?PR?_PUTSTRING?MAIN
+            CODE    025EH     0024H     UNIT         ?PR?_HAL_UART_PUTCHAR?HAL_UART
+            CODE    0282H     0019H     UNIT         ?CO?MAIN
+            CODE    029BH     0019H     UNIT         ?PR?HAL_UART_GETCHAR?HAL_UART
+            CODE    02B4H     0019H     UNIT         ?C?LIB_CODE
+            CODE    02CDH     0014H     UNIT         ?PR?_DELAY_MS?HAL_DELAY
+            CODE    02E1H     0011H     UNIT         ?PR?HAL_ADC_GET_OVERFLOW_STATUS?HAL_ADC
+            CODE    02F2H     0011H     UNIT         ?PR?_HAL_CLK_SET_INPUT?HAL_CLK
+            CODE    0303H     0010H     UNIT         ?PR?_HAL_ADC_SET_INPUT_CHANNEL?HAL_ADC
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 2
+
+
+            CODE    0313H     0010H     UNIT         ?PR?_HAL_ADC_SET_SAMPLING_RATE?HAL_ADC
+            CODE    0323H     0010H     UNIT         ?PR?_HAL_ADC_SET_POWER_DOWN_DELAY?HAL_ADC
+            CODE    0333H     0010H     UNIT         ?PR?_HAL_CLK_REGRET_XOSC16M_ON?HAL_CLK
+            CODE    0343H     000FH     UNIT         ?PR?_HAL_ADC_SET_INPUT_MODE?HAL_ADC
+            CODE    0352H     000FH     UNIT         ?PR?_HAL_ADC_SET_RESOLUTION?HAL_ADC
+            CODE    0361H     000FH     UNIT         ?PR?_HAL_CLK_SET_16M_SOURCE?HAL_CLK
+            CODE    0370H     000EH     UNIT         ?PR?_HAL_ADC_SET_CONVERSION_MODE?HAL_ADC
+            CODE    037EH     000EH     UNIT         ?PR?_HAL_ADC_SET_DATA_JUST?HAL_ADC
+            CODE    038CH     000CH     UNIT         ?PR?_HAL_ADC_SET_REFERENCE?HAL_ADC
+            CODE    0398H     000CH     UNIT         ?PR?_HAL_ADC_SET_ACQ_WINDOW?HAL_ADC
+            CODE    03A4H     000CH     UNIT         ?PR?HAL_ADC_START?HAL_ADC
+            CODE    03B0H     000CH     UNIT         ?PR?HAL_CLK_GET_16M_SOURCE?HAL_CLK
+            CODE    03BCH     000CH     UNIT         ?PR?_HAL_CLK_SET_FREQ?HAL_CLK
+            CODE    03C8H     000CH     UNIT         ?PR?_HAL_CLKLF_SET_SOURCE?HAL_CLK
+            CODE    03D4H     000AH     UNIT         ?PR?HAL_UART_TX_COMPLETE?HAL_UART
+            CODE    03DEH     0007H     UNIT         ?PR?IOINIT?MAIN
+            CODE    03E5H     0006H     UNIT         ?PR?HAL_CLKLF_PHASE?HAL_CLK
+            CODE    03EBH     0006H     UNIT         ?PR?HAL_CLKLF_READY?HAL_CLK
+            CODE    03F1H     0003H     UNIT         ?PR?HAL_ADC_READ_LSB?HAL_ADC
+            CODE    03F4H     0003H     UNIT         ?PR?HAL_ADC_READ_MSB?HAL_ADC
+            CODE    03F7H     0003H     UNIT         ?PR?HAL_UART_CHARS_AVAILABLE?HAL_UART
+
+
+
+OVERLAY MAP OF MODULE:   .\Object\adc_vdd_continuous_step (MAIN)
+
+
+SEGMENT                                            DATA_GROUP 
+  +--> CALLED SEGMENT                            START    LENGTH
+----------------------------------------------------------------
+?PR?ADC_IRQ?MAIN                                 -----    -----
+  +--> ?PR?HAL_ADC_READ_MSB?HAL_ADC
+  +--> ?PR?HAL_ADC_READ_LSB?HAL_ADC
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP                                    -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                                    0008H    0004H
+  +--> ?PR?IOINIT?MAIN
+  +--> ?PR?_HAL_UART_INIT?HAL_UART
+  +--> ?PR?HAL_CLK_GET_16M_SOURCE?HAL_CLK
+  +--> ?PR?ADCINIT?MAIN
+  +--> ?PR?HAL_ADC_START?HAL_ADC
+  +--> ?CO?MAIN
+  +--> ?PR?_PUTSTRING?MAIN
+  +--> ?PR?_PUTHEXSTRING?MAIN
+  +--> ?PR?_DELAY_MS?HAL_DELAY
+
+?PR?ADCINIT?MAIN                                 -----    -----
+  +--> ?PR?_HAL_ADC_SET_INPUT_CHANNEL?HAL_ADC
+  +--> ?PR?_HAL_ADC_SET_REFERENCE?HAL_ADC
+  +--> ?PR?_HAL_ADC_SET_INPUT_MODE?HAL_ADC
+  +--> ?PR?_HAL_ADC_SET_CONVERSION_MODE?HAL_ADC
+  +--> ?PR?_HAL_ADC_SET_SAMPLING_RATE?HAL_ADC
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 3
+
+
+  +--> ?PR?_HAL_ADC_SET_RESOLUTION?HAL_ADC
+  +--> ?PR?_HAL_ADC_SET_DATA_JUST?HAL_ADC
+
+?PR?_PUTSTRING?MAIN                              000CH    0003H
+  +--> ?PR?_HAL_UART_PUTCHAR?HAL_UART
+
+?PR?_PUTHEXSTRING?MAIN                           000CH    0002H
+  +--> ?PR?_HAL_UART_PUTCHAR?HAL_UART
+
+?PR?_DELAY_MS?HAL_DELAY                          -----    -----
+  +--> ?PR?_DELAY_US?HAL_DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Object\adc_vdd_continuous_step (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:00A8H         PUBLIC        IEN0
+  D:00B8H         PUBLIC        IEN1
+  C:020FH         PUBLIC        AdcInit
+  C:00F2H         PUBLIC        main
+  B:00B8H.4       PUBLIC        MISC
+  B:0080H.0       PUBLIC        P00
+  D:0088H         PUBLIC        TCON
+  C:0239H         PUBLIC        _PutString
+  D:0015H         PUBLIC        SampValueLsb
+  D:0016H         PUBLIC        SampValueMsb
+  D:0017H         PUBLIC        SampingFined
+  C:03DEH         PUBLIC        IoInit
+  C:01CAH         PUBLIC        adc_irq
+  C:0026H         PUBLIC        _PutHexString
+  D:0093H         PUBLIC        P0DIR
+  D:0094H         PUBLIC        P1DIR
+  D:0098H         PUBLIC        S0CON
+  D:00D8H         PUBLIC        ADCON
+  D:00C8H         PUBLIC        T2CON
+  D:00F8H         PUBLIC        FSR
+  D:00D4H         PUBLIC        ADCDATH
+  D:00D5H         PUBLIC        ADCDATL
+  D:00E8H         PUBLIC        RFCON
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          ADCINIT
+  C:020FH         LINE#         69
+  C:020FH         LINE#         70
+  C:020FH         LINE#         71
+  C:0214H         LINE#         72
+  C:0219H         LINE#         73
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 4
+
+
+  C:021EH         LINE#         74
+  C:0223H         LINE#         75
+  C:0228H         LINE#         76
+  C:022DH         LINE#         77
+  C:0232H         LINE#         79
+  C:0235H         LINE#         80
+  C:0238H         LINE#         81
+  -------         ENDPROC       ADCINIT
+  -------         PROC          IOINIT
+  C:03DEH         LINE#         83
+  C:03DEH         LINE#         84
+  C:03DEH         LINE#         85
+  C:03E1H         LINE#         86
+  C:03E4H         LINE#         87
+  -------         ENDPROC       IOINIT
+  -------         PROC          _PUTHEXSTRING
+  D:000CH         SYMBOL        x
+  -------         DO            
+  D:000DH         SYMBOL        c
+  -------         ENDDO         
+  C:0026H         LINE#         90
+  C:0028H         LINE#         91
+  C:0028H         LINE#         94
+  C:002FH         LINE#         95
+  C:0036H         LINE#         96
+  C:003AH         LINE#         98
+  C:0040H         LINE#         100
+  C:0046H         LINE#         101
+  C:004DH         LINE#         102
+  C:0051H         LINE#         104
+  C:0057H         LINE#         105
+  -------         ENDPROC       _PUTHEXSTRING
+  -------         PROC          _PUTSTRING
+  D:000CH         SYMBOL        s
+  C:0239H         LINE#         107
+  C:023FH         LINE#         108
+  C:023FH         LINE#         109
+  C:024AH         LINE#         110
+  C:025DH         LINE#         111
+  -------         ENDPROC       _PUTSTRING
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        loop
+  -------         ENDDO         
+  C:00F2H         LINE#         117
+  C:00F2H         LINE#         118
+  C:00F2H         LINE#         119
+  C:00FBH         LINE#         121
+  C:00FEH         LINE#         124
+  C:0103H         LINE#         127
+  C:0109H         LINE#         129
+  C:010CH         LINE#         130
+  C:010EH         LINE#         134
+  C:0110H         LINE#         136
+  C:0112H         LINE#         138
+  C:0115H         LINE#         142
+  C:0115H         LINE#         143
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 5
+
+
+  C:0115H         LINE#         144
+  C:011AH         LINE#         145
+  C:011AH         LINE#         146
+  C:0123H         LINE#         147
+  C:0128H         LINE#         148
+  C:012DH         LINE#         149
+  C:0130H         LINE#         150
+  C:0130H         LINE#         152
+  C:0137H         LINE#         153
+  C:0139H         LINE#         154
+  -------         ENDPROC       MAIN
+  -------         PROC          ADC_IRQ
+  C:01CAH         LINE#         158
+  C:01E7H         LINE#         160
+  C:01EAH         LINE#         161
+  C:01EFH         LINE#         162
+  C:01F4H         LINE#         163
+  -------         ENDPROC       ADC_IRQ
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        HAL_ADC
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  C:03F1H         PUBLIC        hal_adc_read_LSB
+  D:00A0H         PUBLIC        P2
+  C:03F4H         PUBLIC        hal_adc_read_MSB
+  C:0398H         PUBLIC        _hal_adc_set_acq_window
+  D:00B0H         PUBLIC        P3
+  C:038CH         PUBLIC        _hal_adc_set_reference
+  C:0343H         PUBLIC        _hal_adc_set_input_mode
+  D:00A8H         PUBLIC        IEN0
+  C:0323H         PUBLIC        _hal_adc_set_power_down_delay
+  D:00B8H         PUBLIC        IEN1
+  C:037EH         PUBLIC        _hal_adc_set_data_just
+  C:0370H         PUBLIC        _hal_adc_set_conversion_mode
+  C:0352H         PUBLIC        _hal_adc_set_resolution
+  D:0088H         PUBLIC        TCON
+  C:0313H         PUBLIC        _hal_adc_set_sampling_rate
+  C:0303H         PUBLIC        _hal_adc_set_input_channel
+  C:02E1H         PUBLIC        hal_adc_get_overflow_status
+  C:03A4H         PUBLIC        hal_adc_start
+  D:00D3H         PUBLIC        ADCCON1
+  D:00D2H         PUBLIC        ADCCON2
+  D:00D1H         PUBLIC        ADCCON3
+  D:0098H         PUBLIC        S0CON
+  C:001DH         PUBLIC        hal_adc_busy
+  D:00D8H         PUBLIC        ADCON
+  D:00C8H         PUBLIC        T2CON
+  D:00F8H         PUBLIC        FSR
+  D:00D4H         PUBLIC        ADCDATH
+  D:00D5H         PUBLIC        ADCDATL
+  D:00E8H         PUBLIC        RFCON
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          _HAL_ADC_SET_INPUT_CHANNEL
+  D:0007H         SYMBOL        chsel
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 6
+
+
+  C:0303H         LINE#         26
+  C:0303H         LINE#         27
+  C:0303H         LINE#         28
+  C:0312H         LINE#         29
+  -------         ENDPROC       _HAL_ADC_SET_INPUT_CHANNEL
+  -------         PROC          _HAL_ADC_SET_REFERENCE
+  D:0007H         SYMBOL        refsel
+  C:038CH         LINE#         32
+  C:038CH         LINE#         33
+  C:038CH         LINE#         34
+  C:0397H         LINE#         35
+  -------         ENDPROC       _HAL_ADC_SET_REFERENCE
+  -------         PROC          _HAL_ADC_SET_INPUT_MODE
+  D:0007H         SYMBOL        input_mode
+  C:0343H         LINE#         38
+  C:0343H         LINE#         39
+  C:0343H         LINE#         40
+  C:0351H         LINE#         41
+  -------         ENDPROC       _HAL_ADC_SET_INPUT_MODE
+  -------         PROC          _HAL_ADC_SET_CONVERSION_MODE
+  D:0007H         SYMBOL        conv_mode
+  C:0370H         LINE#         44
+  C:0370H         LINE#         45
+  C:0370H         LINE#         46
+  C:037DH         LINE#         47
+  -------         ENDPROC       _HAL_ADC_SET_CONVERSION_MODE
+  -------         PROC          _HAL_ADC_SET_SAMPLING_RATE
+  D:0007H         SYMBOL        rate
+  C:0313H         LINE#         50
+  C:0313H         LINE#         51
+  C:0313H         LINE#         52
+  C:0322H         LINE#         53
+  -------         ENDPROC       _HAL_ADC_SET_SAMPLING_RATE
+  -------         PROC          _HAL_ADC_SET_POWER_DOWN_DELAY
+  D:0007H         SYMBOL        pdd
+  C:0323H         LINE#         56
+  C:0323H         LINE#         57
+  C:0323H         LINE#         58
+  C:0332H         LINE#         59
+  -------         ENDPROC       _HAL_ADC_SET_POWER_DOWN_DELAY
+  -------         PROC          _HAL_ADC_SET_ACQ_WINDOW
+  D:0007H         SYMBOL        tacq
+  C:0398H         LINE#         62
+  C:0398H         LINE#         63
+  C:0398H         LINE#         64
+  C:03A3H         LINE#         65
+  -------         ENDPROC       _HAL_ADC_SET_ACQ_WINDOW
+  -------         PROC          _HAL_ADC_SET_RESOLUTION
+  D:0007H         SYMBOL        res
+  C:0352H         LINE#         68
+  C:0352H         LINE#         69
+  C:0352H         LINE#         70
+  C:0360H         LINE#         71
+  -------         ENDPROC       _HAL_ADC_SET_RESOLUTION
+  -------         PROC          _HAL_ADC_SET_DATA_JUST
+  D:0007H         SYMBOL        just
+  C:037EH         LINE#         74
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 7
+
+
+  C:037EH         LINE#         75
+  C:037EH         LINE#         76
+  C:038BH         LINE#         77
+  -------         ENDPROC       _HAL_ADC_SET_DATA_JUST
+  -------         PROC          HAL_ADC_START
+  -------         DO            
+  D:0007H         SYMBOL        cnt
+  -------         ENDDO         
+  C:03A4H         LINE#         80
+  C:03A4H         LINE#         81
+  C:03A4H         LINE#         82
+  C:03A6H         LINE#         83
+  C:03A9H         LINE#         85
+  C:03AFH         LINE#         86
+  -------         ENDPROC       HAL_ADC_START
+  -------         PROC          HAL_ADC_READ_LSB
+  C:03F1H         LINE#         89
+  C:03F1H         LINE#         90
+  C:03F1H         LINE#         91
+  C:03F3H         LINE#         92
+  -------         ENDPROC       HAL_ADC_READ_LSB
+  -------         PROC          HAL_ADC_READ_MSB
+  C:03F4H         LINE#         94
+  C:03F4H         LINE#         95
+  C:03F4H         LINE#         96
+  C:03F6H         LINE#         97
+  -------         ENDPROC       HAL_ADC_READ_MSB
+  -------         PROC          HAL_ADC_BUSY
+  C:001DH         LINE#         99
+  C:001DH         LINE#         100
+  C:001DH         LINE#         101
+  C:0022H         LINE#         102
+  -------         ENDPROC       HAL_ADC_BUSY
+  -------         PROC          HAL_ADC_GET_OVERFLOW_STATUS
+  C:02E1H         LINE#         104
+  C:02E1H         LINE#         105
+  C:02E1H         LINE#         106
+  C:02F1H         LINE#         107
+  -------         ENDPROC       HAL_ADC_GET_OVERFLOW_STATUS
+  -------         ENDMOD        HAL_ADC
+
+  -------         MODULE        HAL_UART
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  I:0018H         SYMBOL        uart_rx
+  I:0020H         SYMBOL        uart_tx
+  D:00A8H         PUBLIC        IEN0
+  D:00B8H         PUBLIC        IEN1
+  B:0098H.4       PUBLIC        REN0
+  C:029BH         PUBLIC        hal_uart_getchar
+  C:013BH         PUBLIC        uart0_isr
+  D:00BAH         PUBLIC        S0RELH
+  D:000FH         SYMBOL        uart_rx_cnt
+  D:0087H         PUBLIC        PCON
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 8
+
+
+  C:025EH         PUBLIC        _hal_uart_putchar
+  D:0010H         SYMBOL        uart_tx_cnt
+  D:00AAH         PUBLIC        S0RELL
+  D:0088H         PUBLIC        TCON
+  B:00A8H.4       PUBLIC        ES0
+  B:0098H.0       PUBLIC        RI0
+  D:0011H         SYMBOL        uart_rx_rp
+  B:0098H.1       PUBLIC        TI0
+  D:0012H         SYMBOL        uart_tx_rp
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  D:0013H         SYMBOL        uart_rx_wp
+  C:03F7H         PUBLIC        hal_uart_chars_available
+  D:0014H         SYMBOL        uart_tx_wp
+  D:0099H         PUBLIC        S0BUF
+  C:03D4H         PUBLIC        hal_uart_tx_complete
+  D:0098H         PUBLIC        S0CON
+  D:00D8H         PUBLIC        ADCON
+  D:00C8H         PUBLIC        T2CON
+  D:00F8H         PUBLIC        FSR
+  C:0184H         PUBLIC        _hal_uart_init
+  D:00E8H         PUBLIC        RFCON
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          UART0_ISR
+  C:013BH         LINE#         41
+  C:0144H         LINE#         43
+  C:0147H         LINE#         44
+  C:0147H         LINE#         45
+  C:0149H         LINE#         46
+  C:0150H         LINE#         47
+  C:0150H         LINE#         48
+  C:0157H         LINE#         49
+  C:015EH         LINE#         50
+  C:0160H         LINE#         51
+  C:0160H         LINE#         52
+  C:0160H         LINE#         53
+  C:0163H         LINE#         54
+  C:0163H         LINE#         55
+  C:0165H         LINE#         56
+  C:016CH         LINE#         57
+  C:016CH         LINE#         58
+  C:0174H         LINE#         59
+  C:017BH         LINE#         60
+  C:017BH         LINE#         61
+  C:017DH         LINE#         62
+  C:017DH         LINE#         63
+  -------         ENDPROC       UART0_ISR
+  -------         PROC          _HAL_UART_INIT
+  D:0007H         SYMBOL        baud
+  -------         DO            
+  D:0004H         SYMBOL        temp
+  -------         ENDDO         
+  C:0184H         LINE#         65
+  C:0184H         LINE#         66
+  C:0184H         LINE#         69
+  C:0186H         LINE#         70
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 9
+
+
+  C:018BH         LINE#         71
+  C:018DH         LINE#         72
+  C:0191H         LINE#         73
+  C:0193H         LINE#         74
+  C:0195H         LINE#         75
+  C:0197H         LINE#         76
+  C:0199H         LINE#         77
+  C:019CH         LINE#         78
+  C:019FH         LINE#         79
+  C:01ABH         LINE#         80
+  C:01ABH         LINE#         81
+  C:01ABH         LINE#         82
+  C:01AFH         LINE#         83
+  C:01B1H         LINE#         84
+  C:01B1H         LINE#         85
+  C:01B5H         LINE#         86
+  C:01B7H         LINE#         87
+  C:01B7H         LINE#         88
+  C:01BBH         LINE#         89
+  C:01BDH         LINE#         90
+  C:01BDH         LINE#         91
+  C:01BDH         LINE#         92
+  C:01C1H         LINE#         93
+  C:01C1H         LINE#         94
+  C:01C1H         LINE#         95
+  C:01C3H         LINE#         96
+  C:01C5H         LINE#         98
+  C:01C7H         LINE#         99
+  C:01C9H         LINE#         100
+  -------         ENDPROC       _HAL_UART_INIT
+  -------         PROC          _HAL_UART_PUTCHAR
+  D:0007H         SYMBOL        ch
+  C:025EH         LINE#         102
+  C:025EH         LINE#         103
+  C:025EH         LINE#         105
+  C:0265H         LINE#         107
+  C:0267H         LINE#         108
+  C:026BH         LINE#         109
+  C:026BH         LINE#         110
+  C:026DH         LINE#         111
+  C:026FH         LINE#         113
+  C:026FH         LINE#         114
+  C:0276H         LINE#         115
+  C:027DH         LINE#         116
+  C:027DH         LINE#         117
+  C:027FH         LINE#         118
+  C:0281H         LINE#         119
+  -------         ENDPROC       _HAL_UART_PUTCHAR
+  -------         PROC          HAL_UART_CHARS_AVAILABLE
+  C:03F7H         LINE#         122
+  C:03F7H         LINE#         123
+  C:03F7H         LINE#         124
+  C:03F9H         LINE#         125
+  -------         ENDPROC       HAL_UART_CHARS_AVAILABLE
+  -------         PROC          HAL_UART_TX_COMPLETE
+  C:03D4H         LINE#         127
+  C:03D4H         LINE#         128
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 10
+
+
+  C:03D4H         LINE#         129
+  C:03D8H         LINE#         130
+  C:03D8H         LINE#         131
+  C:03DBH         LINE#         132
+  C:03DBH         LINE#         134
+  C:03DBH         LINE#         135
+  C:03DDH         LINE#         136
+  C:03DDH         LINE#         137
+  -------         ENDPROC       HAL_UART_TX_COMPLETE
+  -------         PROC          HAL_UART_GETCHAR
+  -------         DO            
+  D:0007H         SYMBOL        ch
+  -------         ENDDO         
+  C:029BH         LINE#         138
+  C:029BH         LINE#         139
+  C:029BH         LINE#         144
+  C:029FH         LINE#         145
+  C:029FH         LINE#         146
+  C:02A1H         LINE#         147
+  C:02A8H         LINE#         148
+  C:02AFH         LINE#         149
+  C:02B1H         LINE#         150
+  C:02B3H         LINE#         151
+  C:02B3H         LINE#         152
+  -------         ENDPROC       HAL_UART_GETCHAR
+  -------         ENDMOD        HAL_UART
+
+  -------         MODULE        HAL_CLK
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IEN0
+  D:00B8H         PUBLIC        IEN1
+  C:03BCH         PUBLIC        _hal_clk_set_freq
+  D:00A3H         PUBLIC        CLKCTRL
+  C:02F2H         PUBLIC        _hal_clk_set_input
+  C:03E5H         PUBLIC        hal_clklf_phase
+  C:03EBH         PUBLIC        hal_clklf_ready
+  C:03B0H         PUBLIC        hal_clk_get_16m_source
+  D:00ADH         PUBLIC        CLKLFCTRL
+  C:0361H         PUBLIC        _hal_clk_set_16m_source
+  D:0088H         PUBLIC        TCON
+  C:03C8H         PUBLIC        _hal_clklf_set_source
+  D:0098H         PUBLIC        S0CON
+  D:00D8H         PUBLIC        ADCON
+  D:00C8H         PUBLIC        T2CON
+  D:00F8H         PUBLIC        FSR
+  C:0333H         PUBLIC        _hal_clk_regret_xosc16m_on
+  D:00E8H         PUBLIC        RFCON
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          _HAL_CLK_REGRET_XOSC16M_ON
+  D:0007H         SYMBOL        on
+  C:0333H         LINE#         22
+  C:0333H         LINE#         23
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 11
+
+
+  C:0333H         LINE#         24
+  C:0336H         LINE#         25
+  C:0336H         LINE#         26
+  C:033EH         LINE#         27
+  C:033FH         LINE#         29
+  C:033FH         LINE#         30
+  C:0342H         LINE#         31
+  C:0342H         LINE#         32
+  -------         ENDPROC       _HAL_CLK_REGRET_XOSC16M_ON
+  -------         PROC          _HAL_CLK_SET_INPUT
+  D:0007H         SYMBOL        input
+  C:02F2H         LINE#         34
+  C:02F2H         LINE#         35
+  C:02F2H         LINE#         36
+  C:0302H         LINE#         37
+  -------         ENDPROC       _HAL_CLK_SET_INPUT
+  -------         PROC          _HAL_CLK_SET_16M_SOURCE
+  D:0007H         SYMBOL        source
+  C:0361H         LINE#         39
+  C:0361H         LINE#         40
+  C:0361H         LINE#         41
+  C:036FH         LINE#         42
+  -------         ENDPROC       _HAL_CLK_SET_16M_SOURCE
+  -------         PROC          HAL_CLK_GET_16M_SOURCE
+  -------         DO            
+  D:0007H         SYMBOL        clock_source
+  -------         ENDDO         
+  C:03B0H         LINE#         44
+  C:03B0H         LINE#         45
+  C:03B0H         LINE#         47
+  C:03B5H         LINE#         48
+  C:03B5H         LINE#         49
+  C:03B7H         LINE#         50
+  C:03B9H         LINE#         52
+  C:03B9H         LINE#         53
+  C:03BBH         LINE#         54
+  C:03BBH         LINE#         56
+  C:03BBH         LINE#         57
+  -------         ENDPROC       HAL_CLK_GET_16M_SOURCE
+  -------         PROC          _HAL_CLK_SET_FREQ
+  D:0007H         SYMBOL        freq
+  C:03BCH         LINE#         59
+  C:03BCH         LINE#         60
+  C:03BCH         LINE#         61
+  C:03C7H         LINE#         62
+  -------         ENDPROC       _HAL_CLK_SET_FREQ
+  -------         PROC          HAL_CLKLF_PHASE
+  C:03E5H         LINE#         64
+  C:03E5H         LINE#         65
+  C:03E5H         LINE#         66
+  C:03EAH         LINE#         67
+  -------         ENDPROC       HAL_CLKLF_PHASE
+  -------         PROC          HAL_CLKLF_READY
+  C:03EBH         LINE#         69
+  C:03EBH         LINE#         70
+  C:03EBH         LINE#         71
+  C:03F0H         LINE#         72
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/09/2014  14:38:55  PAGE 12
+
+
+  -------         ENDPROC       HAL_CLKLF_READY
+  -------         PROC          _HAL_CLKLF_SET_SOURCE
+  D:0007H         SYMBOL        source
+  C:03C8H         LINE#         74
+  C:03C8H         LINE#         75
+  C:03C8H         LINE#         76
+  C:03D3H         LINE#         77
+  -------         ENDPROC       _HAL_CLKLF_SET_SOURCE
+  -------         ENDMOD        HAL_CLK
+
+  -------         MODULE        HAL_DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:02CDH         PUBLIC        _delay_ms
+  C:000EH         PUBLIC        _delay_us
+  -------         PROC          L?0011
+  -------         ENDPROC       L?0011
+  -------         PROC          _DELAY_US
+  D:0006H         SYMBOL        us
+  C:000EH         LINE#         37
+  C:000EH         LINE#         38
+  C:000EH         LINE#         40
+  C:000EH         LINE#         41
+  C:000FH         LINE#         42
+  C:0010H         LINE#         43
+  C:0011H         LINE#         44
+  C:0012H         LINE#         45
+  C:0013H         LINE#         46
+  C:001CH         LINE#         47
+  -------         ENDPROC       _DELAY_US
+  -------         PROC          _DELAY_MS
+  D:0004H         SYMBOL        ms
+  C:02CDH         LINE#         49
+  C:02D1H         LINE#         50
+  C:02D1H         LINE#         52
+  C:02D1H         LINE#         53
+  C:02D1H         LINE#         54
+  C:02D4H         LINE#         55
+  C:02D4H         LINE#         56
+  C:02D7H         LINE#         57
+  C:02E0H         LINE#         58
+  -------         ENDPROC       _DELAY_MS
+  -------         ENDMOD        HAL_DELAY
+
+  -------         MODULE        ?C?CLDPTR
+  C:02B4H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+Program Size: data=41.0 xdata=0 code=1017
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

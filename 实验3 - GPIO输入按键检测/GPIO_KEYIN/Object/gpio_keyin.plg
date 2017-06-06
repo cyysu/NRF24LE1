@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+E:\ZT-24LE1DEV配套资料\实验例程\基础程序\实验3 - GPIO输入按键检测\GPIO_KEYIN\gpio_keyin.uvproj
+Project File Date:  11/13/2014
+
+<h2>Output:</h2>
+Rebuild target 'GPIO_KEYIN'
+compiling main.c...
+compiling hal_delay.c...
+linking...
+Program Size: data=9.0 xdata=0 code=117
+creating hex file from ".\Object\gpio_keyin"...
+".\Object\gpio_keyin" - 0 Error(s), 0 Warning(s).

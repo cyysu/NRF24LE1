@@ -1,0 +1,313 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              04/29/2015 09:40:31 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Object\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c LARGE BROWSE INCDIR(hal\nrf24le1;hal;hal\nrf24l01p;compiler\common;c
+                    -ompiler\c51) DEBUG OBJECTEXTEND PRINT(.\lst\main.lst) TABS(2) OBJECT(.\Object\main.obj)
+
+line level    source
+
+   1          /****************************************Copyright (c)****************************************************
+   2          **                                        
+   3          **                                 
+   4          **
+   5          **--------------File Info---------------------------------------------------------------------------------
+   6          ** File name:     main.c
+   7          ** Last modified Date: 2015-4-16         
+   8          ** Last Version:    1.2
+   9          ** Descriptions:              
+  10          **--------------------------------------------------------------------------------------------------------
+  11          ** Created by:      FiYu
+  12          ** Created date:    2014-11-12
+  13          ** Version:         1.0
+  14          ** Descriptions:    功耗管理-PIN唤醒实验        
+  15          **--------------------------------------------------------------------------------------------------------
+  16          ** Modified by:     FiYu
+  17          ** Modified date:   
+  18          ** Version:       
+  19          ** Descriptions:    
+  20          ** Rechecked by:      
+  21          **********************************************************************************************************
+             -/
+  22          #include <stdio.h> 
+  23          #include <reg24le1.h>
+  24          #include <stdint.h>
+  25          #include "hal_uart.h"
+  26          #include "hal_clk.h"
+  27          #include "hal_delay.h"
+  28          #include "hal_rtc.h"
+  29          
+  30          /*-------------------管脚定义--------------------------------------------------*/
+  31          #define  D1    P00  // 开发板上的指示灯D1
+  32          #define  D2    P01  // 开发板上的指示灯D2
+  33          #define  S1    P12  // 开发板上的按键S1
+  34          #define  S2    P13  // 开发板上的按键S2
+  35          
+  36          
+  37          /* 开发板中nRF24LE1管脚配置
+  38          P00：输出，驱动D1        P12：输入，按键检测S1  
+  39          P01：输出，驱动D2        P13：输入，按键检测S2
+  40          P02：输出，OLED时钟      P14：输出，OLED数据
+  41          P03：输出，UART TXD      P15：输出，OLED片选
+  42          P04：输入，UART RXD      P16：输出，OLED命令/数据选择
+  43          P06：输入，AIN6  AD检测  蜂鸣器驱动(通过跳线选择)
+  44          */
+  45                       
+  46          #define  DEEPSLEEP        1  // 深度睡眠
+  47          #define  MEMRET_TIMEOFF   2  // 存储器维持，定时器关闭
+  48          #define  MEMRET_TIMEON    3  // 存储器维持，定时器开启
+  49          #define  REGRET           4  // 寄存器维持
+  50          
+  51          
+  52          //函数声明
+  53          void GetPrintLastPWM(void);
+C51 COMPILER V9.52.0.0   MAIN                                                              04/29/2015 09:40:31 PAGE 2   
+
+  54          
+  55          /*******************************************************************************************************
+  56           * 描  述 : 配置 IO P0.0和P0.1为输出P03：输出,作为UART TXD，P04：输入,作为UART RXD
+  57           * 入  参 : 无
+  58           * 返回值 : 无
+  59           *******************************************************************************************************/
+  60          void IO_Init(void)
+  61          { 
+  62   1        P0DIR &= ~0x03;    //配置P0.0和P0.1为输出
+  63   1        P0DIR &= ~0x08;    //P03：输出，UART TXD
+  64   1        P0DIR |= 0x10;     //P04：输入，UART RXD  
+  65   1        D1 = 1;            //设置D1初始状态为熄灭
+  66   1        D2 = 1;            //设置D2初始状态为熄灭
+  67   1      }
+  68          
+  69          /*******************************************************************************************************
+  70           * 描  述 : 串口打印16进制字符
+  71           * 入  参 : 输出的字符
+  72           * 返回值 : 无
+  73           *******************************************************************************************************/
+  74          void PutHexString (uint8_t x)
+  75          {
+  76   1        uint8_t c;
+  77   1      
+  78   1        c = (x>>4)& 0xf;
+  79   1        if (c > 9)
+  80   1          hal_uart_putchar('A'+c-10);
+  81   1        else
+  82   1          hal_uart_putchar('0'+c);
+  83   1      
+  84   1          c = x & 0xf;
+  85   1        if (c > 9)
+  86   1          hal_uart_putchar('A'+c-10);
+  87   1        else
+  88   1         hal_uart_putchar('0'+c);
+  89   1      }
+  90          
+  91          /*******************************************************************************************************
+  92           * 描  述 : 串口输出字符串
+  93           * 入  参 : 无
+  94           * 返回值 : 无
+  95           *******************************************************************************************************/
+  96          void PutString(char *s)
+  97          {
+  98   1        while(*s != 0)
+  99   1          hal_uart_putchar(*s++);
+ 100   1      }
+ 101          /*******************************************************************************************************
+ 102           * 描  述 : 初始化时钟
+ 103           * 入  参 : 无
+ 104           * 返回值 : 无
+ 105           *******************************************************************************************************/
+ 106          void mcu_init(void)
+ 107          {
+ 108   1        hal_rtc_start(false); //关闭32.768KHz时钟
+ 109   1        hal_clklf_set_source(HAL_CLKLF_RCOSC32K); //32.768KHz的时钟源为内部RC    
+ 110   1        hal_clk_set_16m_source(HAL_CLK_XOSC16M);  //使用外部16MHz晶振
+ 111   1      
+ 112   1        hal_clk_regret_xosc16m_on(false);         //寄存器维持模式下关闭 16MHz时钟
+ 113   1        hal_rtc_start(true);              
+ 114   1        
+ 115   1        while((CLKLFCTRL&0x80)==0x80);           //等待时钟启动完成
+C51 COMPILER V9.52.0.0   MAIN                                                              04/29/2015 09:40:31 PAGE 3   
+
+ 116   1        while((CLKLFCTRL&0x80)!=0x80);
+ 117   1      }
+ 118          
+ 119          /*******************************************************************************************************
+ 120           * 描  述 : 设置nRF24LE1低功耗模式
+ 121           * 入  参 : mode:低功耗模式
+ 122           * 返回值 : 无
+ 123           *******************************************************************************************************/
+ 124          void SetPowrDownMode(uint8_t mode)
+ 125          {
+ 126   1        uint8_t PowrMode;
+ 127   1        
+ 128   1        switch(mode)
+ 129   1        {
+ 130   2          case DEEPSLEEP  :     // 深度睡眠，唤醒后复位
+ 131   2            PowrMode=0x01;
+ 132   2            break;
+ 133   2          case MEMRET_TIMEOFF : // 存储器维持，定时器关闭，唤醒后复位
+ 134   2            PowrMode=0x02;
+ 135   2            break;
+ 136   2          case MEMRET_TIMEON:   // 存储器维持，定时器开启，唤醒后复位
+ 137   2            PowrMode=0x03;
+ 138   2            break;
+ 139   2          case REGRET :         // 寄存器维持
+ 140   2            PowrMode=0x04;
+ 141   2            break;
+ 142   2          default         :    //运行
+ 143   2            PowrMode=0x00;
+ 144   2            break;
+ 145   2        }
+ 146   1      
+ 147   1        if(PowrMode==0x01)hal_clk_set_16m_source(HAL_CLK_RCOSC16M);// 进入到DEEPSLEEP前一定要启用RC时钟源 
+ 148   1        if((PowrMode==0x01) || (PowrMode==0x02) || (PowrMode==0x03))OPMCON|=0x02;  // 这3种低功耗模式唤醒后nRF24
+             -LE1会复位，所以要锁定IO     
+ 149   1      
+ 150   1        PWRDWN = PowrMode; 
+ 151   1        PWRDWN = 0x00;  // Clear power down
+ 152   1      }
+ 153          
+ 154          /*******************************************************************************************************
+ 155           * 描  述 : 获取上一次低功耗模式，并通过串口打印
+ 156           * 入  参 : 无
+ 157           * 返回值 : 无
+ 158           *******************************************************************************************************/
+ 159          void GetPrintLastPWM(void)
+ 160          {
+ 161   1        uint8_t PowrMode;
+ 162   1      
+ 163   1        PowrMode = PWRDWN & 0x07;
+ 164   1      
+ 165   1        switch(PowrMode)
+ 166   1        {
+ 167   2          case 0x00:
+ 168   2          PutString("Last mode:Power Off!"); 
+ 169   2          break;
+ 170   2          case 0x01:
+ 171   2          PutString("Last mode:Deep Sleep!");
+ 172   2          break;
+ 173   2          case 0x02:
+ 174   2          PutString("Last mode:Memory Retention, Timer Off!");
+ 175   2          break;
+ 176   2          case 0x03:
+C51 COMPILER V9.52.0.0   MAIN                                                              04/29/2015 09:40:31 PAGE 4   
+
+ 177   2          PutString("Last mode:Memory Retention, Timer On!");
+ 178   2          break;
+ 179   2          case 0x04:
+ 180   2          PutString("Last mode:Register Retention!");
+ 181   2          break;
+ 182   2          default  :
+ 183   2          PutString("Error Or Reserved!");
+ 184   2          break;
+ 185   2        }
+ 186   1      }
+ 187          /*******************************************************************************************************
+ 188           * 描  述 : 设置唤醒PIN
+ 189           * 入  参 : 无
+ 190           * 返回值 : 无
+ 191           *******************************************************************************************************/
+ 192          void SetWakeUpPin(void)
+ 193          {
+ 194   1        OPMCON=0x04;               /* 开锁，低电平唤醒          */ 
+ 195   1        WUOPC0=0x00;               /* P0唤醒的引脚设置：无      */
+ 196   1        WUOPC1=0x04;               /* P1唤醒的引脚设置：P12     */
+ 197   1        
+ 198   1        P1DIR|=0x04;               /* P12初始化为输入I/O口      */
+ 199   1        P12   =1;                  /* P12初始化为高电平         */               
+ 200   1      }
+ 201          /*******************************************************************************************************
+ 202           * 描  述 : 主函数
+ 203           * 入  参 : 无
+ 204           * 返回值 : 无
+ 205           *******************************************************************************************************/
+ 206          void main(void)
+ 207          { 
+ 208   1        uint8_t i,ReceDat;
+ 209   1        uint32_t LoopCount = 0;
+ 210   1      
+ 211   1        IO_Init();      //配置IO  
+ 212   1        SetWakeUpPin(); //设置唤醒管脚
+ 213   1        
+ 214   1        mcu_init();
+ 215   1        
+ 216   1        hal_uart_init(UART_BAUD_57K6); // 初始化UART0                     
+ 217   1        while(hal_clk_get_16m_source() != HAL_CLK_XOSC16M) //等待时钟稳定
+ 218   1        ; 
+ 219   1        
+ 220   1        EA = 1;             //使能全局中断
+ 221   1        for(i=0;i<10;i++)   //指示灯闪烁5次，指示nEF24LE1启动
+ 222   1        {  
+ 223   2          D1 = ~D1;
+ 224   2          delay_ms(120);
+ 225   2        }  
+ 226   1                
+ 227   1        PutString("Program starting...\n");
+ 228   1        delay_ms(100);
+ 229   1        GetPrintLastPWM();
+ 230   1        delay_ms(100);
+ 231   1        
+ 232   1        while(1)
+ 233   1        { 
+ 234   2          LoopCount++;
+ 235   2          if(LoopCount == 10000)
+ 236   2          {
+ 237   3            D2 = ~D2;
+ 238   3            LoopCount = 0;
+C51 COMPILER V9.52.0.0   MAIN                                                              04/29/2015 09:40:31 PAGE 5   
+
+ 239   3          }
+ 240   2      
+ 241   2          if( hal_uart_chars_available() )                  
+ 242   2          {
+ 243   3            ReceDat = hal_uart_getchar();
+ 244   3      
+ 245   3            switch(ReceDat)
+ 246   3            {
+ 247   4              case '1':   // 深度睡眠，唤醒后复位
+ 248   4                PutString("Enter powerdown mode:DEEPSLEEP\n");
+ 249   4                delay_ms(20);
+ 250   4                SetPowrDownMode(DEEPSLEEP);
+ 251   4                break;
+ 252   4      
+ 253   4              case '2':  //存储器维持，定时器关闭，唤醒后复位
+ 254   4                PutString("Enter powerdown mode:Memory retention, Timer Off\n");
+ 255   4                delay_ms(20);
+ 256   4                SetPowrDownMode(MEMRET_TIMEOFF);
+ 257   4                break;
+ 258   4      
+ 259   4              case '3':  //存储器维持，定时器开启，唤醒后复位
+ 260   4                PutString("Enter powerdown mode:Memory retention, Timer On\n");
+ 261   4                delay_ms(20);
+ 262   4                SetPowrDownMode(MEMRET_TIMEON);
+ 263   4                break;
+ 264   4      
+ 265   4             case '4':  //寄存器维持
+ 266   4                PutString("Enter powerdown mode:Register retention\n");
+ 267   4                delay_ms(20);
+ 268   4                SetPowrDownMode(REGRET);      
+ 269   4                break;
+ 270   4      
+ 271   4             default:
+ 272   4               PutString("ERR\n");
+ 273   4               break;
+ 274   4            }
+ 275   3          }  
+ 276   2        }
+ 277   1      }
+ 278           /*********************************END FILE***************************************************************
+             -*/  
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    612    ----
+   CONSTANT SIZE    =    367    ----
+   XDATA SIZE       =   ----      11
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

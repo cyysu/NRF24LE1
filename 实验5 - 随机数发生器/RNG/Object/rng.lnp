@@ -1,0 +1,8 @@
+".\Object\main.obj",
+".\Object\hal_delay.obj",
+".\Object\hal_clk.obj",
+".\Object\hal_rng.obj",
+".\Object\hal_uart.obj" 
+TO ".\Object\rng" 
+PRINT(".\lst\rng.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

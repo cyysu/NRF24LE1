@@ -1,0 +1,8 @@
+".\Object\main.obj",
+".\Object\hal_delay.obj",
+".\Object\hal_clk.obj",
+".\Object\hal_flash.obj",
+".\Object\hal_uart.obj" 
+TO ".\Object\nvdat" 
+PRINT(".\lst\nvdat.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

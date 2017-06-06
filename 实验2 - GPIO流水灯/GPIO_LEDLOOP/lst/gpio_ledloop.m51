@@ -1,0 +1,159 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/20/2015  16:17:04  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE .\Object\main.obj, .\Object\hal_delay.obj TO .\Object\gpio_ledloop PRINT (.\lst\gpio_ledloop.m5
+>> 1) RAMSIZE (256) DISABLEWARNING (15, 16)
+
+
+MEMORY MODEL: LARGE
+
+
+INPUT MODULES INCLUDED:
+  .\Object\main.obj (MAIN)
+  .\Object\hal_delay.obj (HAL_DELAY)
+  C:\KEIL\C51\LIB\C51L.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Object\gpio_ledloop (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+            XDATA   0000H     0001H     UNIT         _XDATA_GROUP_
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     004EH     UNIT         ?PR?MAIN?MAIN
+            CODE    0051H     001AH     UNIT         ?PR?_DELAY_US?HAL_DELAY
+            CODE    006BH     0014H     UNIT         ?PR?_DELAY_MS?HAL_DELAY
+            CODE    007FH     000CH     UNIT         ?C_C51STARTUP
+            CODE    008BH     0008H     UNIT         ?PR?IO_INIT?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   .\Object\gpio_ledloop (MAIN)
+
+
+SEGMENT                           XDATA_GROUP
+  +--> CALLED SEGMENT           START    LENGTH
+-----------------------------------------------
+?C_C51STARTUP                   -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                   0000H    0001H
+  +--> ?PR?IO_INIT?MAIN
+  +--> ?PR?_DELAY_MS?HAL_DELAY
+
+?PR?_DELAY_MS?HAL_DELAY         -----    -----
+  +--> ?PR?_DELAY_US?HAL_DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Object\gpio_ledloop (MAIN)
+
+  VALUE           TYPE          NAME
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/20/2015  16:17:04  PAGE 2
+
+
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IEN0
+  D:00B8H         PUBLIC        IEN1
+  C:008BH         PUBLIC        IO_Init
+  C:0003H         PUBLIC        main
+  B:0080H.0       PUBLIC        P00
+  B:0080H.1       PUBLIC        P01
+  D:0088H         PUBLIC        TCON
+  D:0093H         PUBLIC        P0DIR
+  D:0098H         PUBLIC        S0CON
+  D:00D8H         PUBLIC        ADCON
+  D:00C8H         PUBLIC        T2CON
+  D:00F8H         PUBLIC        FSR
+  D:00E8H         PUBLIC        RFCON
+  D:00D0H         PUBLIC        PSW
+  D:00C0H         PUBLIC        IRCON
+  -------         PROC          IO_INIT
+  C:008BH         LINE#         50
+  C:008BH         LINE#         51
+  C:008BH         LINE#         52
+  C:008EH         LINE#         53
+  C:0090H         LINE#         54
+  C:0092H         LINE#         55
+  -------         ENDPROC       IO_INIT
+  -------         PROC          MAIN
+  -------         DO            
+  X:0000H         SYMBOL        i
+  -------         ENDDO         
+  C:0003H         LINE#         61
+  C:0003H         LINE#         62
+  C:0003H         LINE#         65
+  C:0006H         LINE#         67
+  C:0006H         LINE#         68
+  C:0006H         LINE#         69
+  C:000BH         LINE#         70
+  C:000BH         LINE#         71
+  C:000DH         LINE#         72
+  C:0014H         LINE#         73
+  C:0016H         LINE#         74
+  C:001DH         LINE#         75
+  C:0029H         LINE#         76
+  C:0030H         LINE#         77
+  C:003EH         LINE#         78
+  C:003EH         LINE#         79
+  C:0040H         LINE#         80
+  C:0042H         LINE#         81
+  C:0049H         LINE#         82
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/20/2015  16:17:04  PAGE 3
+
+
+  -------         MODULE        HAL_DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:006BH         PUBLIC        _delay_ms
+  C:005CH         PUBLIC        _delay_us
+  -------         PROC          L?0011
+  -------         ENDPROC       L?0011
+  -------         PROC          _DELAY_US
+  D:0006H         SYMBOL        us
+  C:005CH         LINE#         37
+  C:005CH         LINE#         38
+  C:005CH         LINE#         40
+  C:005CH         LINE#         41
+  C:005DH         LINE#         42
+  C:005EH         LINE#         43
+  C:005FH         LINE#         44
+  C:0060H         LINE#         45
+  C:0061H         LINE#         46
+  C:006AH         LINE#         47
+  -------         ENDPROC       _DELAY_US
+  -------         PROC          _DELAY_MS
+  D:0004H         SYMBOL        ms
+  C:006BH         LINE#         49
+  C:006FH         LINE#         50
+  C:006FH         LINE#         52
+  C:006FH         LINE#         53
+  C:006FH         LINE#         54
+  C:0072H         LINE#         55
+  C:0072H         LINE#         56
+  C:0075H         LINE#         57
+  C:007EH         LINE#         58
+  -------         ENDPROC       _DELAY_MS
+  -------         ENDMOD        HAL_DELAY
+
+Program Size: data=9.0 xdata=1 code=147
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

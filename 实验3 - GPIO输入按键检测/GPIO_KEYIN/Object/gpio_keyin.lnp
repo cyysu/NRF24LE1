@@ -1,0 +1,5 @@
+".\Object\main.obj",
+".\Object\hal_delay.obj" 
+TO ".\Object\gpio_keyin" 
+PRINT(".\lst\gpio_keyin.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

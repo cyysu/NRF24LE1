@@ -1,0 +1,182 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              04/28/2015 16:08:38 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Object\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c LARGE BROWSE INCDIR(hal\nrf24le1;hal;hal\nrf24l01p;compiler\common;c
+                    -ompiler\c51) DEBUG OBJECTEXTEND PRINT(.\lst\main.lst) TABS(2) OBJECT(.\Object\main.obj)
+
+line level    source
+
+   1          /****************************************Copyright (c)****************************************************
+   2          **                                        
+   3          **                                 
+   4          **
+   5          **--------------File Info---------------------------------------------------------------------------------
+   6          ** File name:     main.c
+   7          ** Last modified Date: 2015-4-16         
+   8          ** Last Version:       1.2
+   9          ** Descriptions:              
+  10          **--------------------------------------------------------------------------------------------------------
+  11          ** Created by:      FiYu
+  12          ** Created date:    2014-11-12
+  13          ** Version:         1.0
+  14          ** Descriptions:    看门狗实验          
+  15          **--------------------------------------------------------------------------------------------------------
+  16          ** Modified by:     FiYu
+  17          ** Modified date:   
+  18          ** Version:       
+  19          ** Descriptions:    
+  20          ** Rechecked by:      
+  21          **********************************************************************************************************
+             -/
+  22          
+  23          #include <stdio.h> 
+  24          #include <reg24le1.h>
+  25          #include <stdint.h>
+  26          #include "hal_uart.h"
+  27          #include "hal_clk.h"
+  28          #include "hal_rtc.h"
+  29          #include "hal_delay.h"
+  30          #include "hal_wdog.h"
+  31          
+  32          /*-------------------管脚定义--------------------------------------------------*/
+  33          #define  D1    P00  // 开发板上的指示灯D1
+  34          
+  35          
+  36          /* 开发板中nRF24LE1管脚配置
+  37          P00：输出，驱动D1        P12：输入，按键检测S1  
+  38          P01：输出，驱动D2        P13：输入，按键检测S2
+  39          P02：输出，OLED时钟      P14：输出，OLED数据
+  40          P03：输出，UART TXD      P15：输出，OLED片选
+  41          P04：输入，UART RXD      P16：输出，OLED命令/数据选择
+  42          P06：输入，AIN6  AD检测  蜂鸣器驱动(通过跳线选择)
+  43          */
+  44          
+  45          #define  WDSV_10S    1280              //看门狗超时时间：10s 
+  46          /*
+  47          ** 看门狗超时时间计算 
+  48          **  超时时间 = (WDSV * 256)/32768
+  49          **  所以：最小看门狗超时周期 = 7.8125ms
+  50          **        最大看门狗超时周期 = 512s 
+  51          */
+  52          
+  53          
+C51 COMPILER V9.52.0.0   MAIN                                                              04/28/2015 16:08:38 PAGE 2   
+
+  54          /*******************************************************************************************************
+  55           * 描  述 : 配置 IO P0.0和P0.1为输出，驱动LED
+  56           * 入  参 : 无
+  57           * 返回值 : 无
+  58           *******************************************************************************************************/
+  59          void IoInit(void)
+  60          {
+  61   1        P0DIR &= ~0x01;    //配置P0.0为输出
+  62   1        P0DIR &= ~0x08;    //P03：输出，UART TXD
+  63   1        P0DIR |= 0x10;     //P04：输入，UART RXD
+  64   1        D1 = 1;            //设置D1初始状态为熄灭
+  65   1      }
+  66          
+  67          /*******************************************************************************************************
+  68           * Description : 使能32.768KHz时钟，使用内部RC作为32.768KHz时钟源
+  69           * Parameters  : none
+  70           * Return      : none
+  71           *******************************************************************************************************/
+  72          void ClockInit(void)
+  73          {
+  74   1        hal_rtc_start(false);
+  75   1        hal_clklf_set_source(HAL_CLKLF_RCOSC32K);           //32.768KHz的时钟源为内部RC  
+  76   1      
+  77   1        hal_rtc_start(true);              
+  78   1        
+  79   1        while((CLKLFCTRL&0x80)==0x80);                      // Wait for the 32kHz to startup (change phase)
+  80   1        while((CLKLFCTRL&0x80)!=0x80);   
+  81   1      }
+  82          
+  83          /*******************************************************************************************************
+  84           * 描  述 : 串口打印字符串
+  85           * 入  参 : 字符串地址
+  86           * 返回值 : 无
+  87           *******************************************************************************************************/
+  88          void PutString(char *s)
+  89          {
+  90   1        while(*s != 0)
+  91   1          hal_uart_putchar(*s++);
+  92   1      }
+  93          
+  94          /*******************************************************************************************************
+  95           * 描  述 : 主函数
+  96           * 入  参 : 无
+  97           * 返回值 : 无
+  98           *******************************************************************************************************/
+  99          void main(void)
+ 100          { 
+ 101   1        uint8_t RstReason;  //复位原因
+ 102   1        uint8_t i;
+ 103   1        
+ 104   1        IoInit();  //IO初始化
+ 105   1      
+ 106   1        hal_uart_init(UART_BAUD_57K6); //初始化UART，波特率57600                     
+ 107   1      
+ 108   1        while(hal_clk_get_16m_source() != HAL_CLK_XOSC16M) //等待时钟稳定
+ 109   1        ;
+ 110   1      
+ 111   1        
+ 112   1        EA = 1;        // 使能全局中断
+ 113   1      
+ 114   1        ClockInit();   //初始化时钟       
+ 115   1      
+C51 COMPILER V9.52.0.0   MAIN                                                              04/28/2015 16:08:38 PAGE 3   
+
+ 116   1        for(i=0;i<6;i++)
+ 117   1        {
+ 118   2          D1 = ~D1;
+ 119   2          delay_ms(100);
+ 120   2        }
+ 121   1      
+ 122   1        RstReason = RSTREAS;  //获取前一次复位原因代码
+ 123   1        RstReason &= 0x07;
+ 124   1      
+ 125   1        switch(RstReason)
+ 126   1        {
+ 127   2           case 0x00: //On-chip reset generator
+ 128   2           PutString("Last reset reason: On-chip reset generatorOn-chip reset generator!\n");
+ 129   2           break;
+ 130   2      
+ 131   2         case 0x01: //RST pin
+ 132   2           PutString("Last reset reason: RST pin!\n");
+ 133   2           break;
+ 134   2      
+ 135   2         case 0x02: //Watchdog
+ 136   2           PutString("Last reset reason: Watchdog!\n");
+ 137   2           break;
+ 138   2      
+ 139   2         case 0x04:  //Reset from on-chip hardware debugger
+ 140   2           PutString("Last reset reason: Reset from on-chip hardware debugger!\n");
+ 141   2           break;
+ 142   2      
+ 143   2         default:
+ 144   2           break;
+ 145   2        }
+ 146   1        RSTREAS = 0; //RSTREAS的值是累加的，所以，读以后要进行清除
+ 147   1        hal_wdog_init(WDSV_10S);  //配置看门狗超时时间10s，使能看门狗
+ 148   1      
+ 149   1        while(1); //等待看门狗超时，复位系统
+ 150   1      
+ 151   1      }
+ 152           /*********************************END FILE***************************************************************
+             -*/  
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    198    ----
+   CONSTANT SIZE    =    185    ----
+   XDATA SIZE       =   ----       4
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,8 @@
+".\Object\main.obj",
+".\Object\hal_delay.obj",
+".\Object\hal_clk.obj",
+".\Object\hal_rtc.obj",
+".\Object\hal_uart.obj" 
+TO ".\Object\power management" 
+PRINT(".\lst\power management.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

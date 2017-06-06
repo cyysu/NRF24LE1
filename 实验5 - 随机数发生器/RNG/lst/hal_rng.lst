@@ -1,0 +1,83 @@
+C51 COMPILER V9.52.0.0   HAL_RNG                                                           04/21/2015 09:29:52 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE HAL_RNG
+OBJECT MODULE PLACED IN .\Object\hal_rng.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE hal\nrf24le1\hal_rng.c LARGE BROWSE INCDIR(hal\nrf24le1;hal;hal\nrf24l01p;c
+                    -ompiler\common;compiler\c51) DEBUG OBJECTEXTEND PRINT(.\lst\hal_rng.lst) TABS(2) OBJECT(.\Object\hal_rng.obj)
+
+line level    source
+
+   1          /* Copyright (c) 2009 Nordic Semiconductor. All Rights Reserved.
+   2           *
+   3           * The information contained herein is confidential property of Nordic 
+   4           * Semiconductor ASA.Terms and conditions of usage are described in detail 
+   5           * in NORDIC SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT. 
+   6           *
+   7           * Licensees are granted free, non-transferable use of the information. NO
+   8           * WARRENTY of ANY KIND is provided. This heading must NOT be removed from
+   9           * the file.
+  10           *              
+  11           * $LastChangedRevision: 133 $
+  12           */
+  13          
+  14          /** @file
+  15           * @brief Implementation of hal_rng
+  16           */
+  17          
+  18          #include <stdint.h>
+  19          #include <stdbool.h>
+  20          
+  21          #include "nrf24le1.h"
+  22          #include "nordic_common.h"
+  23          #include "hal_rng.h"
+  24          
+  25          void hal_rng_power_up(bool pwr_up)
+  26          {
+  27   1        if(pwr_up)
+  28   1        {
+  29   2          RNGCTL = (RNGCTL | BIT_7);      // powerUp bit = 1, power up the RNG
+  30   2        }
+  31   1        else
+  32   1        {
+  33   2          RNGCTL = (RNGCTL & ~(BIT_7));   // powerUp bit = 0, turn off the RNG
+  34   2        }
+  35   1      }
+  36          
+  37          void hal_rng_bias_corr_enable(bool en)
+  38          {
+  39   1        if(en)
+  40   1        {
+  41   2          RNGCTL = (RNGCTL | BIT_6);      // correctorEn bit = 1, turn on corrector
+  42   2        }
+  43   1        else
+  44   1        {
+  45   2          RNGCTL = (RNGCTL & ~(BIT_6));   // correctorEn bit = 0, turn off corrector
+  46   2        }
+  47   1      }
+  48          
+  49          uint8_t hal_rng_read(void)
+  50          {
+  51   1        return RNGDAT;                    // Return data stored in RNGDAT register
+  52   1      }
+  53          
+  54          bool hal_rng_data_ready(void)
+C51 COMPILER V9.52.0.0   HAL_RNG                                                           04/21/2015 09:29:52 PAGE 2   
+
+  55          {
+  56   1        return((RNGCTL & BIT_5) > 0);     // Return true if data ready bit is 1
+  57   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     44    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

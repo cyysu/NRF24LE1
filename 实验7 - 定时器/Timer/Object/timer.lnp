@@ -1,0 +1,4 @@
+".\Object\main.obj" 
+TO ".\Object\timer" 
+PRINT(".\lst\timer.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

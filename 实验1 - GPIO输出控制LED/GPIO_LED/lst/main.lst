@@ -1,0 +1,88 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              04/21/2015 09:32:59 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Object\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c LARGE BROWSE INCDIR(compiler\common;hal\nrf24le1;hal;hal\nrf24l01p;c
+                    -ompiler\c51) DEBUG OBJECTEXTEND PRINT(.\lst\main.lst) TABS(2) OBJECT(.\Object\main.obj)
+
+line level    source
+
+   1          /****************************************Copyright (c)****************************************************
+   2          **                                        
+   3          **                                 
+   4          **
+   5          **--------------File Info---------------------------------------------------------------------------------
+   6          ** File name:     main.c
+   7          ** Last modified Date: 2015-4-16         
+   8          ** Last Version:       1.2
+   9          ** Descriptions:              
+  10          **--------------------------------------------------------------------------------------------------------
+  11          ** Created by:      FiYu
+  12          ** Created date:    2014-11-12
+  13          ** Version:         1.0
+  14          ** Descriptions:    GPIO输出控制LED实验       
+  15          **--------------------------------------------------------------------------------------------------------
+  16          ** Modified by:     FiYu
+  17          ** Modified date:   
+  18          ** Version:       
+  19          ** Descriptions:    
+  20          ** Rechecked by:      
+  21          **********************************************************************************************************
+             -/
+  22          #include <reg24le1.h>
+  23          #include <stdio.h> 
+  24          #include <stdint.h>
+  25          #include <stdbool.h>
+  26          #include "hal_delay.h"
+  27          
+  28          
+  29          /*-------------------管脚定义--------------------------------------------------*/
+  30          #define  D1    P00  // 开发板上的指示灯D1
+  31          
+  32          
+  33          /* 开发板中nRF24LE1管脚配置
+  34          P00：输出，驱动D1        P12：输入，按键检测S1  
+  35          P01：输出，驱动D2        P13：输入，按键检测S2
+  36          P02：输出，OLED时钟      P14：输出，OLED数据
+  37          P03：输出，UART TXD      P15：输出，OLED片选
+  38          P04：输入，UART RXD      P16：输出，OLED命令/数据选择
+  39          P06：输入，AIN6  AD检测  蜂鸣器驱动(通过跳线选择)
+  40          */
+  41          
+  42          /*******************************************************************************************************
+  43           * Description : main loop
+  44           * Parameters  : none
+  45           * Return      : none
+  46           *******************************************************************************************************/
+  47          void main(void)
+  48          { 
+  49   1        P0DIR &= ~0x01;    //配置P0.0为输出
+  50   1      
+  51   1        while(true)
+  52   1        {
+  53   2          D1 = 0;          //点亮指示灯D1
+C51 COMPILER V9.52.0.0   MAIN                                                              04/21/2015 09:32:59 PAGE 2   
+
+  54   2          delay_ms(200);   //延时200ms
+  55   2          D1 = 1;          //熄灭D1
+  56   2          delay_ms(200);      
+  57   2        }
+  58   1      }
+  59          
+  60           /*********************************END FILE***************************************************************
+             -*/  
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     23    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

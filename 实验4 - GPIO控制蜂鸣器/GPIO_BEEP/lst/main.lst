@@ -1,0 +1,89 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              04/21/2015 10:45:49 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Object\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c LARGE BROWSE INCDIR(compiler\common;hal\nrf24le1;hal;hal\nrf24l01p;c
+                    -ompiler\c51) DEBUG OBJECTEXTEND PRINT(.\lst\main.lst) TABS(2) OBJECT(.\Object\main.obj)
+
+line level    source
+
+   1          /****************************************Copyright (c)****************************************************
+   2          **                                        
+   3          **                                 
+   4          **
+   5          **--------------File Info---------------------------------------------------------------------------------
+   6          ** File name:     main.c
+   7          ** Last modified Date: 2015-4-16         
+   8          ** Last Version:       1.2
+   9          ** Descriptions:              
+  10          **--------------------------------------------------------------------------------------------------------
+  11          ** Created by:      FiYu
+  12          ** Created date:    2014-11-12
+  13          ** Version:         1.0
+  14          ** Descriptions:    GPIO控制蜂鸣器(需要短接跳线JP1和蜂鸣器相连的一端)         
+  15          **--------------------------------------------------------------------------------------------------------
+  16          ** Modified by:     FiYu
+  17          ** Modified date:   
+  18          ** Version:       
+  19          ** Descriptions:    
+  20          ** Rechecked by:      
+  21          **********************************************************************************************************
+             -/
+  22          #include <reg24le1.h>
+  23          #include <stdio.h> 
+  24          #include <stdint.h>
+  25          #include <stdbool.h>
+  26          #include <string.h>
+  27          #include "hal_delay.h"
+  28          
+  29          
+  30          /*-------------------管脚定义--------------------------------------------------*/
+  31          #define  BEEP    P06  //定义P06为蜂鸣器驱动管脚
+  32          
+  33          
+  34          /* 开发板中nRF24LE1管脚配置
+  35          P00：输出，驱动D1        P12：输入，按键检测S1  
+  36          P01：输出，驱动D2        P13：输入，按键检测S2
+  37          P02：输出，OLED时钟      P14：输出，OLED数据
+  38          P03：输出，UART TXD      P15：输出，OLED片选
+  39          P04：输入，UART RXD      P16：输出，OLED命令/数据选择
+  40          P06：输入，AIN6  AD检测  蜂鸣器驱动(通过跳线选择)
+  41          */
+  42          
+  43          /*******************************************************************************************************
+  44           * Description : main loop
+  45           * Parameters  : none
+  46           * Return      : none
+  47           *******************************************************************************************************/
+  48          void main(void)
+  49          { 
+  50   1        P0DIR &= ~0x40;    //配置P0.6为输出
+  51   1      
+  52   1        while(true)
+  53   1        {
+C51 COMPILER V9.52.0.0   MAIN                                                              04/21/2015 10:45:49 PAGE 2   
+
+  54   2          BEEP = 1;           //蜂鸣器鸣响
+  55   2          delay_ms(200);      //延时200ms
+  56   2          BEEP = 0;           //停止鸣响
+  57   2          delay_ms(200);      
+  58   2        }
+  59   1      }
+  60          
+  61           /*********************************END FILE***************************************************************
+             -*/  
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     23    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

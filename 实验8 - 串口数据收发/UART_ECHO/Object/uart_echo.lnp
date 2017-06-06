@@ -1,0 +1,5 @@
+".\Object\main.obj",
+".\Object\hal_clk.obj" 
+TO ".\Object\uart_echo" 
+PRINT(".\lst\uart_echo.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 

@@ -1,0 +1,7 @@
+".\Object\main.obj",
+".\Object\hal_delay.obj",
+".\Object\oled.obj",
+".\Object\oledfont.obj" 
+TO ".\Object\oled" 
+PRINT(".\lst\oled.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 
